@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FİZİK WEB SİTEM </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: -4px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .search-box button {
+            padding: 8px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-box button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            min-height: 100vh;
+            padding: 100px 0 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #64748b;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Login Form */
+        .login-form {
+            flex: 0 0 400px;
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+        }
+
+        .login-form h2 {
+            margin-bottom: 30px;
+            color: var(--dark-color);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .login-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .form-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .social-login {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .social-login p {
+            margin-bottom: 15px;
+            color: #64748b;
+            position: relative;
+        }
+
+        .social-login p::before,
+        .social-login p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .social-login p::before {
+            left: 0;
+        }
+
+        .social-login p::after {
+            right: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f1f5f9;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            display: block;
+        }
+
+        .error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error-color);
+            display: block;
+        }
+
+        /* Dashboard (hidden by default) */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .dashboard h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .dashboard p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .user-info {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .user-info img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--primary-color);
+        }
+
+        .logout-button {
+            padding: 10px 20px;
+            background-color: var(--error-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+
+        .logout-button:hover {
+            background-color: #dc2626;
+        }
+
+        /* Content Pages */
+        .content-page {
+            display: none;
+            min-height: 100vh;
+            padding: 120px 0 60px;
+        }
+
+        .page-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .content-page h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .content-page h2 {
+            font-size: 24px;
+            margin: 30px 0 15px;
+            color: var(--secondary-color);
+        }
+
+        .content-page p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .admin-content {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 30px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .admin-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .language-button {
+            background: none;
+            border: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .language-button i {
+            margin-left: 5px;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 10px 0;
+            min-width: 120px;
+            display: none;
+            z-index: 100;
+        }
+
+        .language-dropdown a {
+            display: block;
+            padding: 8px 15px;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .language-dropdown a:hover {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+        }
+
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 140px;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+
+            .login-form {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                margin: 15px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links li {
+                margin: 5px 15px;
+            }
+
+            .search-box {
+                margin-top: 15px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .login-form {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo" id="homeLink">
+                <i class="fas fa-code"></i>
+                <span>ANİMASYONLARLA FİZİK</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#" id="homeNavLink">Ana Sayfa</a></li>
+                <li><a href="#" id="aboutNavLink">Hakkımızda</a></li>
+                <li><a href="#" id="servicesNavLink">Hizmetler</a></li>
+                <li><a href="#" id="designNavLink">Tasarım</a></li>
+                <li><a href="#" id="contactNavLink">İletişim</a></li>
+            </ul>
+            <div class="search-box">
+                <input type="text" placeholder="Ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="language-selector">
+                <button class="language-button">
+                    TR <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="language-dropdown">
+                    <a href="#" onclick="changeLanguage('tr')">Türkçe (TR)</a>
+                    <a href="#" onclick="changeLanguage('en')">English (EN)</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="heroSection">
+        <div class="container">
+            <div class="hero-content">
+                <h1>BİRLİKTE FİZİK ÖĞRENELİM</h1>
+                <p>Fizik derslerimizi online olarak takip edin, interaktif içeriklerle öğrenin ve sınavlara hazırlanın.</p>
+                <p>Hızlı ve etkili öğrenme yöntemlerimizle başarıya ulaşın.</p>
+
+                <button class="cta-button" id="joinButton">Hemen Katıl</button>
+            </div>
+            <div class="login-form">
+                <h2>Hesabınıza Giriş Yapın</h2>
+
+                <div id="loginMessage" class="message"></div>
+                <div class="form-group">
+                    <label for="email">E-posta</label>
+                    <input type="email" id="email" placeholder="E-postanızı girin">
+                </div>
+                <div class="form-group">
+                    <label for="password">Şifre</label>
+                    <input type="password" id="password" placeholder="Şifrenizi girin">
+                </div>
+                <button class="login-button" onclick="login()">Giriş Yap</button>
+                <div class="form-footer">
+                    <p>Hesabınız yok mu? <a href="#" id="signupLink">Kayıt olun</a></p>
+                </div>
+                <div class="social-login">
+                    <p>Veya şununla giriş yapın</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-google"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard (hidden initially) -->
+    <section class="dashboard" id="dashboard">
+        <div class="container">
+            <div class="user-info">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Kullanıcı Profili">
+                <h1>Hoş geldiniz, <span id="username">Kullanıcı</span>!</h1>
+                <p>Fizik derslerinizi online olarak takip edin, interaktif içeriklerle öğrenin ve sınavlara hazırlanın.</p>
+                <p>Hızlı ve etkili öğrenme yöntemlerimizle başarıya ulaşın.</p>
+                <P>Animasyonla fizik öğrenin!</P>
+
+                <button class="logout-button" onclick="logout()">Çıkış Yap</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section class="content-page" id="aboutPage">
+        <div class="container">
+            <div class="page-content">
+                <h1>Hakkımızda</h1>
+                
+                <h2>Bizim Hikayemiz</h2>
+                <p>Sitemizde, fizik derslerini daha erişilebilir ve eğlenceli hale getirmek için kurulmuştur. Amacımız, öğrencilere kaliteli eğitim materyalleri sunarak onların başarılarını artırmaktır.</p>
+
+
+                <h2>Misyonumuz</h2>
+                <p>Fizik eğitimini herkes için erişilebilir kılmak ve öğrencilerin bu alandaki potansiyellerini en üst düzeye çıkarmalarına yardımcı olmaktır.</p>
+
+                <div class="admin-content" id="adminAboutContent" style="display: none;">
+                    <h3>Yönetici İçeriği</h3>
+                    <p><strong>Site İstatistikleri:</strong> 15.000+ aktif kullanıcı, %85 kurs tamamlama oranı</p>
+                    <p><strong>Yaklaşan Özellikler:</strong> Önümüzdeki ay yeni React kursu, geliştirme aşamasında mobil uygulama</p>
+                    <p><strong>Yönetici Notları:</strong> Bir sonraki promosyondan önce fiyatlandırma sayfasını güncelleme gerekiyor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Page -->
+    <section class="content-page" id="servicesPage">
+        <div class="container">
+            <div class="page-content">
+                <h1>Hizmetlerimiz</h1>
+                
+                <h2>Online Fizik Dersleri</h2>
+                <a href="ders.html">Derslerimizi Keşfedin</a>
+                <p>Fizik derslerimizi online olarak takip edin, interaktif içeriklerle öğrenin ve sınavlara hazırlanın.</p>
+                
+
+                <div class="admin-content" id="adminServicesContent" style="display: none;">
+                    <h3>Yönetici İçeriği</h3>
+                    <p><strong>Hizmet İstatistikleri:</strong> Aylık 50+ yeni proje, %95 müşteri memnuniyeti</p>
+                    <p><strong>Özel Teklifler:</strong> Kurumsal müşteriler için %15 indirim kampanyası devam ediyor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Page -->
+    <section class="content-page" id="designPage">
+        <div class="container">
+            <div class="page-content">
+                <h1>Tasarım Çözümlerimiz</h1>
+                
+                <h2>Marka Kimliği Tasarımı</h2>
+                <p>İşletmenizin benzersiz kişiliğini yansıtan logo, renk paleti ve tipografi çözümleri sunuyoruz.</p>
+                
+                <h2>Responsive Tasarım</h2>
+                <p>Masaüstü, tablet ve mobil cihazlarda mükemmel görüntülenen, tamamen duyarlı web tasarımları oluşturuyoruz.</p>
+                
+                <div class="admin-content" id="adminDesignContent" style="display: none;">
+                    <h3>Yönetici İçeriği</h3>
+                    <p><strong>Tasarım İstatistikleri:</strong> Son 3 ayda 120+ tasarım projesi tamamlandı</p>
+                    <p><strong>Yeni Araçlar:</strong> Figma için yeni tasarım sistemini entegre etmeyi unutmayın</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section class="content-page" id="contactPage">
+        <div class="container">
+            <div class="page-content">
+                <h1>İletişim</h1>
+                
+                <h2>Bize Ulaşın</h2>
+                <p>Projeleriniz veya sorularınız için bizimle iletişime geçmekten çekinmeyin. Uzman ekibimiz en kısa sürede size dönüş yapacaktır.</p>
+                
+                <h2>İletişim Bilgileri</h2>
+                <p><i class="fas fa-map-marker-alt"></i> Adres: Örnek Mahallesi, Demo Sokak No:123, İstanbul</p>
+                <p><i class="fas fa-phone"></i> Telefon: (0212) 123 45 67</p>
+                <p><i class="fas fa-envelope"></i> E-posta: info@praroz.com</p>
+                
+                <div class="admin-content" id="adminContactContent" style="display: none;">
+                    <h3>Yönetici İçeriği</h3>
+                    <p><strong>Son İletişimler:</strong> Son 7 günde 45 yeni ileti</p>
+                    <p><strong>Acil Yanıt Gerekenler:</strong> 3 adet yüksek öncelikli talep var</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Demo user data
+        const demoUsers = [
+            { email: "admin@example.com", password: "123456", name: "Admin", isAdmin: true },
+            { email: "user@example.com", password: "123456", name: "Kullanıcı", isAdmin: false }
+        ];
+
+        // Language data
+        const languageData = {
+            tr: {
+                home: "Ana Sayfa",
+                about: "Hakkımızda",
+                services: "Hizmetler",
+                design: "Tasarım",
+                contact: "İletişim",
+                loginTitle: "Hesabınıza Giriş Yapın",
+                email: "E-posta",
+                emailPlaceholder: "E-postanızı girin",
+                password: "Şifre",
+                passwordPlaceholder: "Şifrenizi girin",
+                loginButton: "Giriş Yap",
+                noAccount: "Hesabınız yok mu?",
+                signup: "Kayıt olun",
+                orLogin: "Veya şununla giriş yapın",
+                welcome: "Hoş geldiniz",
+                logout: "Çıkış Yap",
+                loginSuccess: "Giriş başarılı! Yönlendiriliyorsunuz...",
+                loginError: "Geçersiz e-posta veya şifre",
+                fillFields: "Lütfen tüm alanları doldurun",
+                pleaseLogin: "Lütfen önce giriş yapın"
+            },
+            en: {
+                home: "Home",
+                about: "About",
+                services: "Services",
+                design: "Design",
+                contact: "Contact",
+                loginTitle: "Login to Your Account",
+                email: "Email",
+                emailPlaceholder: "Enter your email",
+                password: "Password",
+                passwordPlaceholder: "Enter your password",
+                loginButton: "Login",
+                noAccount: "Don't have an account?",
+                signup: "Sign up here",
+                orLogin: "Or login with",
+                welcome: "Welcome",
+                logout: "Logout",
+                loginSuccess: "Login successful! Redirecting...",
+                loginError: "Invalid email or password",
+                fillFields: "Please fill in all fields",
+                pleaseLogin: "Please login first"
+            }
+        };
+
+        // Current settings
+        let currentUser = null;
+        let currentLanguage = 'tr';
+
+        // DOM Elements
+        const loginMessage = document.getElementById('loginMessage');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const dashboard = document.getElementById('dashboard');
+        const heroSection = document.getElementById('heroSection');
+        const aboutPage = document.getElementById('aboutPage');
+        const servicesPage = document.getElementById('servicesPage');
+        const designPage = document.getElementById('designPage');
+        const contactPage = document.getElementById('contactPage');
+        const joinButton = document.getElementById('joinButton');
+        const signupLink = document.getElementById('signupLink');
+        const homeLink = document.getElementById('homeLink');
+        const homeNavLink = document.getElementById('homeNavLink');
+        const aboutNavLink = document.getElementById('aboutNavLink');
+        const servicesNavLink = document.getElementById('servicesNavLink');
+        const designNavLink = document.getElementById('designNavLink');
+        const contactNavLink = document.getElementById('contactNavLink');
+        const adminContents = document.querySelectorAll('.admin-content');
+
+        // Initialize the page
+        function initPage() {
+            updateLanguage(currentLanguage);
+        }
+
+        // Update language
+        function updateLanguage(lang) {
+            currentLanguage = lang;
+            const langData = languageData[lang];
+            
+            // Update navigation
+            homeNavLink.textContent = langData.home;
+            aboutNavLink.textContent = langData.about;
+            servicesNavLink.textContent = langData.services;
+            designNavLink.textContent = langData.design;
+            contactNavLink.textContent = langData.contact;
+            
+            // Update login form
+            document.querySelector('.login-form h2').textContent = langData.loginTitle;
+            document.querySelector('.form-group label[for="email"]').textContent = langData.email;
+            document.querySelector('.form-group label[for="password"]').textContent = langData.password;
+            emailInput.placeholder = langData.emailPlaceholder;
+            passwordInput.placeholder = langData.passwordPlaceholder;
+            document.querySelector('.login-button').textContent = langData.loginButton;
+            document.querySelector('.form-footer p').innerHTML = `${langData.noAccount} <a href="#" id="signupLink">${langData.signup}</a>`;
+            document.querySelector('.social-login p').textContent = langData.orLogin;
+            
+            // Update dashboard
+            if (currentUser) {
+                document.querySelector('.dashboard h1').innerHTML = `${langData.welcome}, <span id="username">${currentUser.name}</span>!`;
+                document.querySelector('.logout-button').textContent = langData.logout;
+            }
+        }
+
+        // Change language
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            updateLanguage(lang);
+            return false;
+        }
+
+        // Login Function
+        function login() {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            const langData = languageData[currentLanguage];
+
+            // Simple validation
+            if (!email || !password) {
+                showMessage(langData.fillFields, 'error');
+                return;
+            }
+
+            // Check if user exists
+            const user = demoUsers.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                currentUser = user;
+                showMessage(langData.loginSuccess, 'success');
+                
+                // Simulate loading
+                setTimeout(() => {
+                    showDashboard();
+                }, 1500);
+            } else {
+                showMessage(langData.loginError, 'error');
+            }
+        }
+
+        // Show Dashboard
+        function showDashboard() {
+            // Hide all pages
+            heroSection.style.display = 'none';
+            aboutPage.style.display = 'none';
+            servicesPage.style.display = 'none';
+            designPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            
+            // Show dashboard
+            dashboard.style.display = 'block';
+            
+            // Update username and language
+            document.getElementById('username').textContent = currentUser.name;
+            updateLanguage(currentLanguage);
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Show Home Page
+        function showHomePage() {
+            heroSection.style.display = 'flex';
+            dashboard.style.display = 'none';
+            aboutPage.style.display = 'none';
+            servicesPage.style.display = 'none';
+            designPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        // Show About Page
+        function showAboutPage() {
+            if (!currentUser) {
+                showMessage(languageData[currentLanguage].pleaseLogin, 'error');
+                return;
+            }
+            
+            // Update admin content visibility
+            document.getElementById('adminAboutContent').style.display = currentUser.isAdmin ? 'block' : 'none';
+            
+            // Show about page
+            heroSection.style.display = 'none';
+            dashboard.style.display = 'none';
+            aboutPage.style.display = 'block';
+            servicesPage.style.display = 'none';
+            designPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        // Show Services Page
+        function showServicesPage() {
+            if (!currentUser) {
+                showMessage(languageData[currentLanguage].pleaseLogin, 'error');
+                return;
+            }
+            
+            // Update admin content visibility
+            document.getElementById('adminServicesContent').style.display = currentUser.isAdmin ? 'block' : 'none';
+            
+            // Show services page
+            heroSection.style.display = 'none';
+            dashboard.style.display = 'none';
+            aboutPage.style.display = 'none';
+            servicesPage.style.display = 'block';
+            designPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        // Show Design Page
+        function showDesignPage() {
+            if (!currentUser) {
+                showMessage(languageData[currentLanguage].pleaseLogin, 'error');
+                return;
+            }
+            
+            // Update admin content visibility
+            document.getElementById('adminDesignContent').style.display = currentUser.isAdmin ? 'block' : 'none';
+            
+            // Show design page
+            heroSection.style.display = 'none';
+            dashboard.style.display = 'none';
+            aboutPage.style.display = 'none';
+            servicesPage.style.display = 'none';
+            designPage.style.display = 'block';
+            contactPage.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        // Show Contact Page
+        function showContactPage() {
+            if (!currentUser) {
+                showMessage(languageData[currentLanguage].pleaseLogin, 'error');
+                return;
+            }
+            
+            // Update admin content visibility
+            document.getElementById('adminContactContent').style.display = currentUser.isAdmin ? 'block' : 'none';
+            
+            // Show contact page
+            heroSection.style.display = 'none';
+            dashboard.style.display = 'none';
+            aboutPage.style.display = 'none';
+            servicesPage.style.display = 'none';
+            designPage.style.display = 'none';
+            contactPage.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        // Logout Function
+        function logout() {
+            // Clear inputs
+            emailInput.value = '';
+            passwordInput.value = '';
+            
+            // Show login form and hide other sections
+            showHomePage();
+            
+            // Reset current user
+            currentUser = null;
+            
+            // Show logout message
+            showMessage('Çıkış yapıldı', 'success');
+            
+            // Scroll to login form
+            setTimeout(() => {
+                window.scrollTo(0, heroSection.offsetTop);
+                loginMessage.style.display = 'none';
+            }, 1500);
+        }
+
+        // Show message function
+        function showMessage(message, type) {
+            loginMessage.textContent = message;
+            loginMessage.className = 'message ' + type;
+            
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                loginMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // Event Listeners
+        joinButton.addEventListener('click', () => {
+            alert('Katıl butonuna tıklandı! Normalde kayıt sayfasına yönlendirilirdi.');
+        });
+
+        signupLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Kayıt ol linkine tıklandı! Normalde kayıt sayfasına yönlendirilirdi.');
+        });
+
+        homeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showHomePage();
+        });
+
+        homeNavLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showHomePage();
+        });
+
+        aboutNavLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showAboutPage();
+        });
+
+        servicesNavLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showServicesPage();
+        });
+
+        designNavLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showDesignPage();
+        });
+
+        contactNavLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showContactPage();
+        });
+
+        // Allow form submission with Enter key
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        // Initialize the page
+        initPage();
+    </script>
+</body>
+</html>
